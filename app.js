@@ -9,12 +9,23 @@ function userAgentParse (string) {
   return string.slice(start, end);
 }
 
+function ipParse (string) {
+  if (string.slice(0, 5) == "::ffff:") {
+    return string.slice(6, string.length-1);
+  }
+  return string;
+}
+
+
+
 app.get('/', function(req, res){
 
   var str = userAgentParse(req.headers['user-agent']);
 
-  var obj = {"ipaddress":req.ip,
-            "language":req.acceptsLanguages()[0],
+  var ipStr = ipParse(req.ip);
+
+  var obj = {"ipaddress": ipStr,
+            "language": req.acceptsLanguages()[0],
             "software": str
           }
   res.send(obj);
