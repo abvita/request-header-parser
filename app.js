@@ -8,7 +8,6 @@ app.get('/', function(req, res){
 });
 
 app.get('/:query', function(req, res){
-
 });
 
 app.listen(app.get('port'), function() {
