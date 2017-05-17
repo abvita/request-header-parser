@@ -3,11 +3,21 @@ var app = express();
 
 app.set('port', (process.env.PORT || 5000));
 
-app.get('/', function(req, res){
-  console.log(req.ip);
-});
+function userAgentParse (string) {
+  var start = string.indexOf("(")+1;
+  var end = string.indexOf(")");
+  return string.slice(start, end);
+}
 
-app.get('/:query', function(req, res){
+app.get('/', function(req, res){
+
+  var str = userAgentParse(req.headers['user-agent']);
+
+  var obj = {"ipaddress":req.ip,
+            "language":req.acceptsLanguages()[0],
+            "software": str
+          }
+  res.send(obj);
 });
 
 app.listen(app.get('port'), function() {
