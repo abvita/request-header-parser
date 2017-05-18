@@ -11,7 +11,7 @@ function userAgentParse (string) {
 
 function ipParse (string) {
   if (string.includes("::ffff:")) {
-    return string.slice(5, string.length-1);
+    return string.slice(7, string.length-1);
   }
   return string;
 }
